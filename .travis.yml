@@ -1,5 +1,6 @@
 language: python
 arch: arm64
+os: linux
 dist: focal
 virt: vm
 cache: pip
