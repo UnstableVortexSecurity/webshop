@@ -21,5 +21,5 @@ before_script:
   - bandit -r .
 
 script:
-  - docker build -t="registry.kmlabz.com/$TRAVIS_REPO_SLUG:$TRAVIS_BUILD_NUMBER" . && docker push "registry.kmlabz.com/$TRAVIS_REPO_SLUG:$TRAVIS_BUILD_NUMBER"
-  - docker build -t="registry.kmlabz.com/$TRAVIS_REPO_SLUG" . && docker push "registry.kmlabz.com/$TRAVIS_REPO_SLUG"
+  - docker build -t="registry.kmlabz.com/unstablevortex/webshop:$TRAVIS_BUILD_NUMBER" . && docker push "registry.kmlabz.com/unstablevortex/webshop:$TRAVIS_BUILD_NUMBER"
+  - docker build -t="registry.kmlabz.com/unstablevortex/webshop" . && docker push "registry.kmlabz.com/unstablevortex/webshop"
