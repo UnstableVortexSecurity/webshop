@@ -5,9 +5,10 @@ import sentry_sdk
 from sentry_sdk.integrations.flask import FlaskIntegration
 from sentry_sdk.integrations.sqlalchemy import SqlalchemyIntegration
 from healthcheck import HealthCheck
+from flask_cors import CORS
 
 from utils.config import SENTRY_DSN, RELEASE_ID, RELEASEMODE, POSTGRES_DB, PORT, POSTGRES_HOSTNAME, POSTGRES_PASSWORD, \
-    POSTGRES_USERNAME, DEBUG, SECRET_KEY
+    POSTGRES_USERNAME, DEBUG, SECRET_KEY, ALLOWED_ORIGINS
 from utils import db, ma, health_database_status, security, user_datastore
 from views import ItemView, LoginView, ProfileView, RegisterView, UploadView
 
@@ -41,6 +42,7 @@ health = HealthCheck()
 db.init_app(app)
 ma.init_app(app)
 security.init_app(app, user_datastore)
+CORS(app, origins=ALLOWED_ORIGINS)
 
 formatter = logging.Formatter(
     fmt="%(asctime)s - %(levelname)s - %(module)s - %(message)s"

@@ -1,0 +1,68 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webshop
+  namespace: unstablevortex
+  labels:
+    app: webshop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webshop
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: webshop
+    spec:
+      containers:
+        - name: webshop
+          image: registry.kmlabz.com/unstablevortex/webshop
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+      imagePullSecrets:
+        - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webshop
+  namespace: unstablevortex
+  labels:
+    app: webshop
+spec:
+  ports:
+    - name: webshop
+      port: 80
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    app: webshop
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: webshop
+  namespace: unstablevortex
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+spec:
+  tls:
+    - hosts:
+        - unstablevortex.k8s.kmlabz.com
+      secretName: unstablevortex-cert-secret
+  rules:
+    - host: unstablevortex.k8s.kmlabz.com
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: webshop
+              servicePort: 80

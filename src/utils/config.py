@@ -25,3 +25,4 @@ POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD", "webshop")
 POSTGRES_DB = os.getenv("POSTGRES_DB", "webshop")
 
 SECRET_KEY = os.getenv("SECRET_KEY")
+ALLOWED_ORIGINS = os.environ.get('ALLOWED_ORIGINS', '*')
