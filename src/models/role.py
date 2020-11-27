@@ -4,7 +4,7 @@ from flask_security import RoleMixin
 from utils import db
 
 """
-Database models
+Role model
 """
 
 __author__ = '@tormakris'

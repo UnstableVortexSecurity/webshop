@@ -5,7 +5,7 @@ from .role import roles_users
 from utils import db
 
 """
-Database models
+User model
 """
 
 __author__ = '@tormakris'
