@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from sqlalchemy import func
 
-from utils import db
+from . import db
 
 """
 Item model
@@ -16,4 +16,7 @@ __version__text__ = "1"
 class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String, nullable=False)
-    creation_date = db.Column(db.TIMESTAMP, nullable=False, server_default=func.now())
+    upload_date = db.Column(db.TIMESTAMP, nullable=False, server_default=func.now())
+
+    uploader_id = db.Column(db.Integer, db.ForeignKey("user.id", ondelete="CASCADE"), nullable=False)
+    uploader = db.relationship("User", backref=db.backref("uploads", lazy=True))

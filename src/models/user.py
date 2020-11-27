@@ -2,7 +2,7 @@
 from flask_security import UserMixin
 
 from .role import roles_users
-from utils import db
+from . import db
 
 """
 User model

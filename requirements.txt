@@ -11,3 +11,6 @@ flask-cors
 requests
 psycopg2-binary
 email_validator
+minio
+flask-minio
+bleach

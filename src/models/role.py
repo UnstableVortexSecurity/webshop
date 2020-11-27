@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from flask_security import RoleMixin
 
-from utils import db
+from . import db
 
 """
 Role model

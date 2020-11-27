@@ -19,10 +19,7 @@ SENTRY_DSN = os.environ.get("SENTRY_DSN")
 RELEASE_ID = os.environ.get("RELEASE_ID", "test")
 RELEASEMODE = os.environ.get("RELEASEMODE", "dev")
 
-POSTGRES_HOSTNAME = os.getenv("POSTGRES_HOSTNAME", "localhost")
-POSTGRES_USERNAME = os.getenv("POSTGRES_USERNAME", "webshop")
-POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD", "webshop")
-POSTGRES_DB = os.getenv("POSTGRES_DB", "webshop")
+SQLALCHEMY_URI = os.environ.get("SQLALCHEMY_URI", "sqlite://")
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 ALLOWED_ORIGINS = os.environ.get('ALLOWED_ORIGINS', '*')

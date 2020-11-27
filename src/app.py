@@ -7,10 +7,11 @@ from sentry_sdk.integrations.sqlalchemy import SqlalchemyIntegration
 from healthcheck import HealthCheck
 from flask_cors import CORS
 
-from utils.config import SENTRY_DSN, RELEASE_ID, RELEASEMODE, POSTGRES_DB, PORT, POSTGRES_HOSTNAME, POSTGRES_PASSWORD, \
-    POSTGRES_USERNAME, DEBUG, SECRET_KEY, ALLOWED_ORIGINS
-from utils import db, health_database_status, security, user_datastore
+from utils.config import SENTRY_DSN, RELEASE_ID, RELEASEMODE, PORT, DEBUG, SECRET_KEY, ALLOWED_ORIGINS, SQLALCHEMY_URI
+from utils import health_database_status, security, user_datastore
 from views import ItemView, ProfileView, UploadView, IndexView
+
+from models import db
 
 """
 Main Flask entrypoint
@@ -33,8 +34,7 @@ if SENTRY_DSN:
     )
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = \
-    f"postgresql://{POSTGRES_USERNAME}:{POSTGRES_PASSWORD}@{POSTGRES_HOSTNAME}:5432/{POSTGRES_DB}"
+app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = SECRET_KEY
 app.config['SECURITY_REGISTERABLE'] = True
