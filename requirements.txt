@@ -14,3 +14,4 @@ email_validator
 minio
 flask-minio
 bleach
+bcrypt

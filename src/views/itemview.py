@@ -14,9 +14,6 @@ __version__text__ = "1"
 
 class ItemView(FlaskView):
 
-    route_prefix = "/item/"
-    route_base = '/'
-
     def index(self):
         pass
 

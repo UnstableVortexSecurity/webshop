@@ -14,8 +14,5 @@ __version__text__ = "1"
 
 class UploadView(FlaskView):
 
-    route_prefix = "/upload/"
-    route_base = '/'
-
     def index(self):
         pass
