@@ -5,9 +5,6 @@ flask-admin
 gunicorn
 sentry-sdk[flask]
 py-healthcheck
-marshmallow
-flask-marshmallow
 sqlalchemy
 flask-sqlalchemy
-marshmallow-sqlalchemy
 flask-cors
