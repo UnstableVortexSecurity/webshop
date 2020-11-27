@@ -1,0 +1,23 @@
+version: '3'
+
+networks:
+  postgres:
+    external: false
+
+services:
+  db:
+    image: postgres:13
+    restart: always
+    ports:
+      - "127.0.0.1:5432:5432"
+    environment:
+      - POSTGRES_USER=webshop
+      - POSTGRES_PASSWORD=webshop
+      - POSTGRES_DB=webshop
+    networks:
+      - postgres
+    volumes:
+      - postres-volume:/var/lib/postgresql/data
+
+volumes:
+  postres-volume:

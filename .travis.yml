@@ -1,5 +1,5 @@
 language: python
-arch: arm64
+arch: amd64
 os: linux
 dist: focal
 virt: vm
