@@ -9,6 +9,7 @@ from healthcheck import HealthCheck
 from utils.config import SENTRY_DSN, RELEASE_ID, RELEASEMODE, POSTGRES_DB, PORT, POSTGRES_HOSTNAME, POSTGRES_PASSWORD, \
     POSTGRES_USERNAME, DEBUG, SECRET_KEY
 from utils import db, ma, health_database_status, security, user_datastore
+from views import ItemView, LoginView, ProfileView, RegisterView, UploadView
 
 """
 Main Flask entrypoint
@@ -52,7 +53,8 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 logger.addHandler(handler)
 
-# api.add_resource(SampleResource, "/sample")
+for view in [ItemView, LoginView, ProfileView, RegisterView, UploadView]:
+    view.register(app, trailing_slash=False)
 
 health.add_check(health_database_status)
 app.add_url_rule("/healthz", "healthcheck", view_func=lambda: health.run())
