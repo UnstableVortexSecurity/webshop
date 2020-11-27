@@ -1,0 +1,24 @@
+language: python
+arch: arm64
+dist: focal
+virt: vm
+cache: pip
+
+services:
+  - docker
+
+before_install:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin registry.kmlabz.com
+
+install:
+  - pip3 install pylint bandit mccabe
+
+before_script:
+  - find . -name "*.py" -exec python3 -m py_compile '{}' \;
+  - find . -name "*.py" -exec pylint '{}' + || if [ $? -eq 1 ]; then echo "you fail"; fi
+  - find . -name "*.py" -exec python3 -m mccabe --min 3 '{}' + || if [ $? -eq 1 ]; then echo "you fail"; fi
+  - bandit -r .
+
+script:
+  - docker build -t="registry.kmlabz.com/$TRAVIS_REPO_SLUG:$TRAVIS_BUILD_NUMBER" . && docker push "registry.kmlabz.com/$TRAVIS_REPO_SLUG:$TRAVIS_BUILD_NUMBER"
+  - docker build -t="registry.kmlabz.com/$TRAVIS_REPO_SLUG" . && docker push "registry.kmlabz.com/$TRAVIS_REPO_SLUG"
