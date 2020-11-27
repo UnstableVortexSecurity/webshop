@@ -8,7 +8,7 @@ from healthcheck import HealthCheck
 from flask_cors import CORS
 
 from utils import Config
-from utils import health_database_status, security, user_datastore
+from utils import health_database_status, init_security_real_good
 from views import ItemView, ProfileView, UploadView, IndexView
 
 from models import db
@@ -39,7 +39,7 @@ app.config.from_object(Config)
 
 health = HealthCheck()
 db.init_app(app)
-security.init_app(app, user_datastore)
+init_security_real_good(app)
 CORS(app)
 
 for view in [ItemView, ProfileView, UploadView, IndexView]:
