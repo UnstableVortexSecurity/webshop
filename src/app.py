@@ -70,6 +70,5 @@ def init_db():
 if __name__ == "__main__":
     app.run(
         debug=bool(DEBUG),
-        host="0.0.0.0",
         port=int(PORT),
     )

@@ -8,3 +8,4 @@ py-healthcheck
 sqlalchemy
 flask-sqlalchemy
 flask-cors
+requests
