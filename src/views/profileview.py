@@ -14,5 +14,8 @@ __version__text__ = "1"
 
 class ProfileView(FlaskView):
 
+    route_prefix = "/profile/"
+    route_base = '/'
+
     def index(self):
         pass

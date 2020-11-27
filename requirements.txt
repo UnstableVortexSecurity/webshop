@@ -9,3 +9,5 @@ sqlalchemy
 flask-sqlalchemy
 flask-cors
 requests
+psycopg2-binary
+email_validator

@@ -6,9 +6,9 @@
     <!--        <h5 class="card-title">Special title treatment</h5>-->
     <!--        <h6 class="card-subtitle text-muted">Support card subtitle</h6>-->
     <!--    </div>-->
-    <img src="{{image.preview}}" class="card-img" style="padding: 30px" alt="{{image.caption}}">
+    <img src="{{image.preview}}" class="card-img" style="padding: 30px" alt="{{image.name}}">
     <div class="card-body">
-        <p class="card-text">{{ image.caption }}</p>
+        <p class="card-text">{{ image.name }}</p>
     </div>
     <div class="card-body">
         <table class="table table-responsive">
@@ -16,10 +16,6 @@
             <tr class="table-active">
                 <th scope="row">Creator</th>
                 <td>{{ image.creator }}</td>
-            </tr>
-            <tr class="table-active">
-                <th scope="row">Number of images</th>
-                <td>{{ image.num_anim }}</td>
             </tr>
             <tr class="table-active">
                 <th scope="row">Creation date</th>

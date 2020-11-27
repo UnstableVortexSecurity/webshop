@@ -1,27 +1,23 @@
 #!/usr/bin/env python3
-
+from flask import render_template
 from flask_classful import FlaskView
 
+from models import Item
+
 """
-Item VIEW
+Index VIEW
 """
 
 __author__ = "@tormakris"
 __copyright__ = "Copyright 2020, UnstableVortex Team"
-__module_name__ = "itemview"
+__module_name__ = "indexview"
 __version__text__ = "1"
 
 
-class ItemView(FlaskView):
+class IndexView(FlaskView):
 
-    route_prefix = "/item/"
     route_base = '/'
 
     def index(self):
-        pass
-
-    def download(self):
-        pass
-
-    def delete(self):
-        pass
+        items = Item.query.all()
+        return render_template("index.html", images=items)

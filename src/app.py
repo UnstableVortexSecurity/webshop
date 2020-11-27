@@ -9,8 +9,8 @@ from flask_cors import CORS
 
 from utils.config import SENTRY_DSN, RELEASE_ID, RELEASEMODE, POSTGRES_DB, PORT, POSTGRES_HOSTNAME, POSTGRES_PASSWORD, \
     POSTGRES_USERNAME, DEBUG, SECRET_KEY, ALLOWED_ORIGINS
-from utils import db, ma, health_database_status, security, user_datastore
-from views import ItemView, LoginView, ProfileView, RegisterView, UploadView
+from utils import db, health_database_status, security, user_datastore
+from views import ItemView, ProfileView, UploadView, IndexView
 
 """
 Main Flask entrypoint
@@ -37,10 +37,10 @@ app.config['SQLALCHEMY_DATABASE_URI'] = \
     f"postgresql://{POSTGRES_USERNAME}:{POSTGRES_PASSWORD}@{POSTGRES_HOSTNAME}:5432/{POSTGRES_DB}"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = SECRET_KEY
+app.config['SECURITY_REGISTERABLE'] = True
 
 health = HealthCheck()
 db.init_app(app)
-ma.init_app(app)
 security.init_app(app, user_datastore)
 CORS(app, origins=ALLOWED_ORIGINS)
 
@@ -55,7 +55,7 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 logger.addHandler(handler)
 
-for view in [ItemView, LoginView, ProfileView, RegisterView, UploadView]:
+for view in [ItemView, ProfileView, UploadView, IndexView]:
     view.register(app, trailing_slash=False)
 
 health.add_check(health_database_status)

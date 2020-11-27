@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.min.css">
-    <title>My Store Web App</title>
+    <title>UnstableVortex CAFF Store</title>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-3">
     <div class="container">
-        <a class="navbar-brand" href="{{ url_for('index') }}">UnstableVortex CAFF Store</a>
+        <a class="navbar-brand" href="{{ url_for('IndexView:index') }}">UnstableVortex CAFF Store</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -19,16 +19,16 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+                    <a class="nav-link" href="{{ url_for('IndexView:index') }}">Home</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="{{ url_for('profile') }}">Profile</a>
+                    <a class="nav-link" href="{{ url_for('ProfileView:index') }}">Profile</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+                    <a class="nav-link" href="{{ url_for_security('login') }}">Login</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="{{ url_for('register') }}">Register</a>
+                    <a class="nav-link" href="{{ url_for_security('login') }}">Register</a>
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
