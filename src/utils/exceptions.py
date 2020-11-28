@@ -1,0 +1,4 @@
+
+
+class FileIntegrityError(BaseException):
+    pass

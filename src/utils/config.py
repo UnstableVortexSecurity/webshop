@@ -30,7 +30,17 @@ class Config:
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     SECURITY_EMAIL_SENDER = os.environ.get('SECURITY_EMAIL_SENDER', 'noreply@unstablevortex.kmlabz.com')
 
+    CAFF_PREVIEWER_ENDPOINT = os.environ["CAFF_PREVIEWER_ENDPOINT"]  # This should prevent application startup
+
+    # Those all should fail the application startup
+    MINIO_ENDPOINT = os.environ["MINIO_ENDPOINT"]
+    MINIO_ACCESS_KEY = os.environ["MINIO_ACCESS_KEY"]
+    MINIO_SECRET_KEY = os.environ["MINIO_SECRET_KEY"]
+    MINIO_SECURE = os.environ.get("MINIO_SECURE", "true").upper() == 'TRUE'
+
     # Some constant configured stuff configs
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECURITY_REGISTERABLE = True
     SECURITY_PASSWORD_HASH = "bcrypt"
+    MINIO_PREVIEW_BUCKET_NAME = "previews"
+    MINIO_CAFF_BUCKET_NAME = "caff"

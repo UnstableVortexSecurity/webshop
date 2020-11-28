@@ -9,6 +9,7 @@ from flask_mail import Mail
 
 from utils import Config
 from utils import health_database_status, init_security_real_good
+from utils import storage
 from views import ItemView, ProfileView, UploadView, IndexView
 
 from models import db
@@ -42,6 +43,7 @@ db.init_app(app)
 init_security_real_good(app)
 CORS(app)
 Mail(app)
+storage.init_app(app)
 
 for view in [ItemView, ProfileView, UploadView, IndexView]:
     view.register(app, trailing_slash=False)
