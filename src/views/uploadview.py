@@ -16,3 +16,7 @@ class UploadView(FlaskView):
 
     def index(self):
         return render_template('upload.html')
+
+
+    def post(self):
+        pass
