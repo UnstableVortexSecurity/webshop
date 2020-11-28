@@ -15,7 +15,8 @@
                     <a href="{{ url_for('ContentView:caff', id_=item.id) }}" class="btn btn-lg btn-success"
                        target="_self">Download</a>
                 {% else %}
-                    <a href="#" class="btn btn-lg btn-primary" target="_blank">Purchase</a>
+                    <a href="{{ url_for("PurchaseView:get", id_=item.id) }}" class="btn btn-lg btn-primary"
+                       target="_self">Purchase</a>
                 {% endif %}
             </div>
         </div>
