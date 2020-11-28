@@ -10,7 +10,7 @@ from flask_mail import Mail
 from utils import Config
 from utils import health_database_status, init_security_real_good
 from utils import storage
-from views import ItemView, ProfileView, UploadView, IndexView
+from views import ItemView, ProfileView, UploadView, IndexView, ContentView
 
 from models import db
 
@@ -45,7 +45,7 @@ CORS(app)
 Mail(app)
 storage.init_app(app)
 
-for view in [ItemView, ProfileView, UploadView, IndexView]:
+for view in [ItemView, ProfileView, UploadView, IndexView, ContentView]:
     view.register(app, trailing_slash=False)
 
 health.add_check(health_database_status)
