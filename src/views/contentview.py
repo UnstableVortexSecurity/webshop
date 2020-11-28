@@ -39,7 +39,8 @@ class ContentView(FlaskView):
         if not p:
             abort(403)
 
-        filename = ''.join(filter(lambda x: x in string.ascii_lowercase, p.item.name))
+        allowed_chars = string.ascii_lowercase + string.ascii_uppercase + string.digits
+        filename = ''.join(filter(lambda x: x in allowed_chars, p.item.name)).lower()
 
         if not filename:
             filename = str(p.item.id)
