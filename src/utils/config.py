@@ -22,6 +22,14 @@ class Config:
 
     SECURITY_PASSWORD_SALT = os.environ.get("SECURITY_PASSWORD_SALT")  # That's pepper actually
 
+    # Flask mail's stuff
+    MAIL_SERVER = os.environ.get("MAIL_SERVER")
+    MAIL_PORT = os.environ.get("MAIL_PORT", 465)
+    MAIL_USE_SSL = os.environ.get('MAIL_USE_SSL', 'true').upper() == 'TRUE'
+    MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
+    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+    SECURITY_EMAIL_SENDER = os.environ.get('SECURITY_EMAIL_SENDER', 'noreply@unstablevortex.kmlabz.com')
+
     # Some constant configured stuff configs
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECURITY_REGISTERABLE = True

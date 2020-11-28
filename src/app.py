@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-import logging
 from flask import Flask
 import sentry_sdk
 from sentry_sdk.integrations.flask import FlaskIntegration
 from sentry_sdk.integrations.sqlalchemy import SqlalchemyIntegration
 from healthcheck import HealthCheck
 from flask_cors import CORS
+from flask_mail import Mail
 
 from utils import Config
 from utils import health_database_status, init_security_real_good
@@ -41,6 +41,7 @@ health = HealthCheck()
 db.init_app(app)
 init_security_real_good(app)
 CORS(app)
+Mail(app)
 
 for view in [ItemView, ProfileView, UploadView, IndexView]:
     view.register(app, trailing_slash=False)
