@@ -22,18 +22,25 @@
                     <a class="nav-link" href="{{ url_for('IndexView:index') }}">Home</a>
                 </li>
                 {% if current_user.is_authenticated %}
-                <li class="nav-item active">
-                    <a class="nav-link" href="{{ url_for('ProfileView:index') }}">Profile</a>
-                </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ url_for('ProfileView:index') }}">Profile</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ url_for('UploadView:index') }}">Upload</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ url_for_security('logout') }}">Logout</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ url_for_security('login') }}">Login</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ url_for_security('register') }}">Register</a>
+                    </li>
                 {% endif %}
-                <li class="nav-item active">
-                    <a class="nav-link" href="{{ url_for_security('login') }}">Login</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="{{ url_for_security('register') }}">Register</a>
-                </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0" action="{{url_for('IndexView:index')}}" method="get">
+            <form class="form-inline my-2 my-lg-0" action="{{ url_for('IndexView:index') }}" method="get">
                 <input class="form-control mr-sm-2" name="search" type="text" placeholder="Search">
                 <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
             </form>
