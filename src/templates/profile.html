@@ -3,10 +3,10 @@
 {% block content %}
     {% if current_user.is_authenticated %}
         <div>
-            <h1>Welcome {{ current_user.name }}</h1>
-            <a href="{{ url_for('UploadView:index') }}" class="btn btn-secondary">Upload</a>
+            <div class="row">
+                <h1 class="d-inline">Welcome {{ current_user.name }}</h1>
+            </div>
         </div>
-        <br>
         {% if current_user.uploads %}
             <div class="row"><h2>Your uploads</h2></div>
             <div class="row mx-2">
@@ -29,9 +29,10 @@
                 {% endfor %}
             </div>
         {% endif %}
+
+        <div class="row"><h2>Your purchases</h2></div>
         <div class="row mx-2">
-            <div class="row"><h2>Your purchases</h2></div>
-            <div class="row mx-2">
+            {% if current_user.purchases %}
                 {% for purchase in current_user.purchases %}
                     <div class="col-12 col-sm-6 col-md-4 px-2 mb-3">
                         <div class="card">
@@ -49,8 +50,12 @@
                         </div>
                     </div>
                 {% endfor %}
-            </div>
+            {% else %}
+                <p>Nothing is here! Check the <a href="{{ url_for("IndexView:index") }}">Home page</a> for images to
+                    purchase</p>
+            {% endif %}
         </div>
+
     {% else %}
         <p><a href="{{ url_for_security('login') }}">Log in</a> to view your profile.</p>
     {% endif %}
