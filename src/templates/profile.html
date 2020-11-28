@@ -1,37 +1,37 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% if current_user.is_authenticated %}
-<div>
-    <h1>Welcome {{ current_user.username }}</h1>
-    <a href="{{ url_for('UploadView:index') }}" class="btn btn-primary">Upload</a>
-</div>
-<br>
-{% if images %}
-<div class="row mx-2">
-    {% for image in images %}
-    <div class="col-12 col-sm-6 col-md-4 px-2 mb-3">
-        <div class="card">
-            <a href="{{ url_for('ItemView:index', id=image.id) }}">
-                <img src="{{image.preview}}" class="img-fluid" style="padding: 30px" alt="{{image.name}}">
-            </a>
-            <div class="card-body">
-                <h5 class="card-title">{{image.creator}}</h5>
-                <p class="card-text">
-                    {{image.caption}}
-                </p>
-                <a href="{{ url_for('ItemView:download', id=image.id) }}" class="btn btn-primary" target="_blank">Download</a>
-                <a href="{{ url_for('ItemView:delete', id=image.id) }}" class="btn btn-primary" target="_blank">Delete</a>
-            </div>
+    {% if current_user.is_authenticated %}
+        <div>
+            <h1>Welcome {{ current_user.name }}</h1>
+            <a href="{{ url_for('UploadView:index') }}" class="btn btn-secondary">Upload</a>
         </div>
-    </div>
-    {% endfor %}
-</div>
+        <br>
+        {% if current_user.uploads %}
+            <div class="row mx-2">
+                {% for item in current_user.uploads %}
+                    <div class="col-12 col-sm-6 col-md-4 px-2 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <a href="{{ url_for('ItemView:get', id_=item.id) }}"><img
+                                        src="{{ url_for('ContentView:preview', id_=item.id) }}"
+                                        class="img-fluid" alt="{{ item.name }}"
+                                /></a>
+                                <p class="card-text">
+                                    {{ item.name }}
+                                </p>
+                                <a href="{{ url_for('ContentView:caff', id_=item.id) }}"
+                                   class="btn btn-primary" target="_blank">Download</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
 
-{% else %}
-<p>No images available.</p>
-{% endif %}
-{% else %}
-<p><a href="{{ url_for_security('login') }}">Log in</a> to view your profile.</p>
-{% endif %}
+        {% else %}
+            <p>No images available.</p>
+        {% endif %}
+    {% else %}
+        <p><a href="{{ url_for_security('login') }}">Log in</a> to view your profile.</p>
+    {% endif %}
 {% endblock %}

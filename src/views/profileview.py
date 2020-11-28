@@ -21,7 +21,5 @@ class ProfileView(FlaskView):
 
     @login_required
     def index(self):
-
         useritems = Item.query.filter_by(uploader_id=current_user.id)
-
         return render_template('profile.html', images=useritems)
