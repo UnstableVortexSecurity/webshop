@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
-
+from flask import render_template
 from flask_classful import FlaskView
+from flask_security import current_user
+
+from models import db, Comment, Item, Purchase
 
 """
 Item VIEW
@@ -14,11 +17,14 @@ __version__text__ = "1"
 
 class ItemView(FlaskView):
 
-    def index(self):
-        pass
+    def get(self, id_: int):
+        item = Item.query.get_or_404(id_)
 
-    def download(self):
-        pass
+        if not current_user.is_authenticated:
+            purchased = False
+        else:
+            p = Purchase.query.filter(
+                db.and_(Purchase.purchaser_id == current_user.id, Purchase.item_id == id_)).first()
+            purchased = bool(p)
 
-    def delete(self):
-        pass
+        return render_template('item.html', item=item, purchased=purchased)

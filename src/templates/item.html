@@ -1,69 +1,62 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="card mb-3">
-    <h3 class="card-header">Animation by {{ image.creator }}</h3>
-    <!--    <div class="card-body">-->
-    <!--        <h5 class="card-title">Special title treatment</h5>-->
-    <!--        <h6 class="card-subtitle text-muted">Support card subtitle</h6>-->
-    <!--    </div>-->
-    <img src="{{image.preview}}" class="card-img" style="padding: 30px" alt="{{image.name}}">
-    <div class="card-body">
-        <p class="card-text">{{ image.name }}</p>
-    </div>
-    <div class="card-body">
-        <table class="table table-responsive">
-            <tbody>
-            <tr class="table-active">
-                <th scope="row">Creator</th>
-                <td>{{ image.creator }}</td>
-            </tr>
-            <tr class="table-active">
-                <th scope="row">Creation date</th>
-                <td>{{ image.creation_date }}</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="card-body">
-        <a href="{{ url_for('download', id=image.id) }}" class="card-link" target="_blank">Download</a>
-    </div>
-    <div class="card-footer text-muted">
-        Uploaded: {{ image.upload_date }}
-    </div>
-</div>
+    <div class="card mb-3">
+        <h3 class="card-header">Animation by {{ item.uploader.name }}</h3>
+        <div class="card-body">
+            <h4>
+                <p class="card-text">{{ item.name }}</p>
+            </h4>
 
-{% if current_user.is_authenticated %}
-<div class="card">
-    <div class="card-body">
-        <form>
-            <fieldset>
-                <legend>Write a comment</legend>
-                <div class="form-group">
-            <textarea class="form-control" id="commentTextarea" rows="3" ,
-                      placeholder="Type your comment here"></textarea>
+            <img src="{{ url_for('ContentView:preview', id_=item.id) }}" class="card-img" style="padding: 30px"
+                 alt="{{ item.name }}">
+
+            <div class="card-text text-center">
+                {% if purchased %}
+                    <a href="{{ url_for('ContentView:caff', id_=item.id) }}" class="btn btn-lg btn-success"
+                       target="_self">Download</a>
+                {% else %}
+                    <a href="#" class="btn btn-lg btn-primary" target="_blank">Purchase</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="card-footer text-muted">
+            Uploaded: {{ item.upload_date }}
+        </div>
+    </div>
+
+    {% if current_user.is_authenticated %}
+        <div class="card my-2">
+            <div class="card-body">
+                <form>
+                    <fieldset>
+                        <legend>Write a comment</legend>
+                        <div class="form-group">
+                            <textarea class="form-control" id="commentTextarea" rows="3"
+                                      placeholder="Type your comment here"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if item.comments %}
+        {% for comment in item.comments %}
+            <div class="card my-2">
+                <div class="card-body">
+                    <h4 class="card-title">{{ comment.commenter.name }}</h4>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ comment.date }}</h6>
+                    <p class="card-text">{{ comment.text }}</p>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </fieldset>
-        </form>
-    </div>
-</div>
-{% endif %}
-
-{% if comments %}
-{% for comment in comments %}
-<div class="card">
-    <div class="card-body">
-        <h4 class="card-title">{{ comment.user }}</h4>
-        <h6 class="card-subtitle mb-2 text-muted">{{ comment.date }}</h6>
-        <p class="card-text">{{ comment.text }}</p>
-    </div>
-</div>
-{% endfor %}
-{% else %}
-<div class="card">
-    <div class="card-body">
-        <p>No comments yet.</p>
-    </div>
-</div>
-{% endif %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="card my-2">
+            <div class="card-body">
+                <p>No comments yet.</p>
+            </div>
+        </div>
+    {% endif %}
+    <div class="my-4"></div>
 {% endblock %}
