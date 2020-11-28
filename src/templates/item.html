@@ -27,12 +27,12 @@
     {% if current_user.is_authenticated %}
         <div class="card my-2">
             <div class="card-body">
-                <form>
+                <form method="post" action="">
                     <fieldset>
                         <legend>Write a comment</legend>
                         <div class="form-group">
                             <textarea class="form-control" id="commentTextarea" rows="3"
-                                      placeholder="Type your comment here"></textarea>
+                                      placeholder="Type your comment here" name="comment"></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </fieldset>

@@ -14,4 +14,4 @@ class Comment(db.Model):
     item_id = db.Column(db.Integer, db.ForeignKey("item.id", ondelete="CASCADE"), nullable=False)
     item = db.relationship("Item", backref=db.backref("comments", lazy=True))
 
-    text = db.Text(4096)
+    text = db.Column(db.String(4096), nullable=False)

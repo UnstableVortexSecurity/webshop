@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-from flask import render_template
+from flask import render_template, request, flash, redirect, url_for, current_app
 from flask_classful import FlaskView
-from flask_security import current_user
+from flask_security import current_user, login_required
 
 from models import db, Comment, Item, Purchase
+import bleach
 
 """
 Item VIEW
@@ -28,3 +29,21 @@ class ItemView(FlaskView):
             purchased = bool(p)
 
         return render_template('item.html', item=item, purchased=purchased)
+
+    @login_required
+    def post(self, id_: int):
+
+        comment_text = request.form.get('comment', '')
+        comment_text = comment_text[:Comment.text.property.columns[0].type.length]
+        comment_text = bleach.clean(comment_text, tags=[])
+
+        if not comment_text:
+            flash("Comment field can not be empty", "primary")
+            return redirect(url_for('ItemView:get', id_=id_))
+
+        i = Item.query.get_or_404(id_)
+        c = Comment(commenter=current_user, item=i, text=comment_text)
+
+        db.session.add(c)
+        db.session.commit()
+        return redirect(url_for('ItemView:get', id_=id_))
