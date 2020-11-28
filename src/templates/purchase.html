@@ -3,13 +3,45 @@
 {% block content %}
     {% if current_user.is_authenticated %}
         <div class="jumbotron">
-            <h1 class="display-3">File Upload</h1>
-            <br>
-            <form method="POST" action="">
-                <p><input type="submit" value="buy" class="btn btn-primary"></p>
-            </form>
+            <h1 class="display-3">Purchase animation</h1>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-12">
+                        <p>You are about to purchase the following item: </p>
+                        <table class="table table-responsive">
+                            <tbody>
+                            <tr class="table-active">
+                                <th scope="row">Name</th>
+                                <td>{{ item.name }}</td>
+                            </tr>
+                            <tr class="table-active">
+                                <th scope="row">Uploader</th>
+                                <td>{{ item.uploader.name }}</td>
+                            </tr>
+                            <tr class="table-active">
+                                <th scope="row">Upload date</th>
+                                <td>{{ item.upload_date }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-6 col-12 text-right">
+                        <img src="{{ url_for('ContentView:preview', id_=item.id) }}" class="card-img"
+                             alt="{{ item.name }}">
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-5 text-center">
+                <form method="POST" action="">
+                    <p>
+                        <button type="submit" class="btn btn-danger">Yes, purchase this item!</button>
+                    </p>
+                </form>
+            </div>
         </div>
     {% else %}
-        <p><a href="{{ url_for_security('login') }}">Log in</a> to upload an animation.</p>
+        <p><a href="{{ url_for_security('login') }}">Log in</a> to purchase an animation.</p>
     {% endif %}
 {% endblock %}
