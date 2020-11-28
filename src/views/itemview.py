@@ -3,7 +3,9 @@ from flask import render_template, request, flash, redirect, url_for, current_ap
 from flask_classful import FlaskView
 from flask_security import current_user, login_required
 
-from models import db, Comment, Item, Purchase
+from utils import user_can_access_caff
+
+from models import db, Comment, Item
 import bleach
 
 """
@@ -20,15 +22,9 @@ class ItemView(FlaskView):
 
     def get(self, id_: int):
         item = Item.query.get_or_404(id_)
+        can_download = user_can_access_caff(item)
 
-        if not current_user.is_authenticated:
-            purchased = False
-        else:
-            p = Purchase.query.filter(
-                db.and_(Purchase.purchaser_id == current_user.id, Purchase.item_id == id_)).first()
-            purchased = bool(p)
-
-        return render_template('item.html', item=item, purchased=purchased)
+        return render_template('item.html', item=item, can_download=can_download)
 
     @login_required
     def post(self, id_: int):

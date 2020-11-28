@@ -7,7 +7,9 @@ from flask_security import login_required, current_user
 from utils import storage
 from minio.error import NoSuchKey
 
-from models import db, Item, Purchase
+from utils import user_can_access_caff
+
+from models import db, Item
 
 
 class ContentView(FlaskView):
@@ -29,22 +31,21 @@ class ContentView(FlaskView):
 
     def preview(self, id_: int):
         i = Item.query.get_or_404(id_)
-
         return self._stream_from_minio(current_app.config['MINIO_PREVIEW_BUCKET_NAME'], i.id)
 
     @login_required
     def caff(self, id_: int):
-        p = Purchase.query.filter(db.and_(Purchase.purchaser_id == current_user.id, Purchase.item_id == id_)).first()
+        item = Item.query.get_or_404(id_)
 
-        if not p:
+        if not user_can_access_caff(item):
             abort(403)
 
         allowed_chars = string.ascii_lowercase + string.ascii_uppercase + string.digits
-        filename = ''.join(filter(lambda x: x in allowed_chars, p.item.name)).lower()
+        filename = ''.join(filter(lambda x: x in allowed_chars, item.name)).lower()
 
         if not filename:
-            filename = str(p.item.id)
+            filename = str(item.id)
 
-        filename += f'_{p.id}.caff'
+        filename += '.caff'
 
-        return self._stream_from_minio(current_app.config['MINIO_CAFF_BUCKET_NAME'], p.item.id, filename)
+        return self._stream_from_minio(current_app.config['MINIO_CAFF_BUCKET_NAME'], item.id, filename)

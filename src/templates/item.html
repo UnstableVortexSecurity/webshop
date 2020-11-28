@@ -4,14 +4,14 @@
         <h3 class="card-header">Animation by {{ item.uploader.name }}</h3>
         <div class="card-body">
             <h4>
-                <p class="card-text">{{ item.name }}</p>
+                {{ item.name }}
             </h4>
 
             <img src="{{ url_for('ContentView:preview', id_=item.id) }}" class="card-img" style="padding: 30px"
                  alt="{{ item.name }}">
 
             <div class="card-text text-center">
-                {% if purchased %}
+                {% if can_download %}
                     <a href="{{ url_for('ContentView:caff', id_=item.id) }}" class="btn btn-lg btn-success"
                        target="_self">Download</a>
                 {% else %}
