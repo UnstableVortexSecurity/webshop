@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+from flask import render_template
 from flask_classful import FlaskView
 
 """
@@ -15,4 +15,4 @@ __version__text__ = "1"
 class ProfileView(FlaskView):
 
     def index(self):
-        pass
+        return render_template('profile.html')
