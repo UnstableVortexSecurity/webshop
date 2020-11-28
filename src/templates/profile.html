@@ -8,6 +8,7 @@
         </div>
         <br>
         {% if current_user.uploads %}
+            <div class="row"><h2>Your uploads</h2></div>
             <div class="row mx-2">
                 {% for item in current_user.uploads %}
                     <div class="col-12 col-sm-6 col-md-4 px-2 mb-3">
@@ -21,16 +22,35 @@
                                     {{ item.name }}
                                 </p>
                                 <a href="{{ url_for('ContentView:caff', id_=item.id) }}"
-                                   class="btn btn-primary" target="_blank">Download</a>
+                                   class="btn btn-primary" target="_self">Download</a>
                             </div>
                         </div>
                     </div>
                 {% endfor %}
             </div>
-
-        {% else %}
-            <p>No images available.</p>
         {% endif %}
+        <div class="row mx-2">
+            <div class="row"><h2>Your purchases</h2></div>
+            <div class="row mx-2">
+                {% for purchase in current_user.purchases %}
+                    <div class="col-12 col-sm-6 col-md-4 px-2 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <a href="{{ url_for('ItemView:get', id_=purchase.item.id) }}"><img
+                                        src="{{ url_for('ContentView:preview', id_=purchase.item.id) }}"
+                                        class="img-fluid" alt="{{ purchase.item.name }}"
+                                /></a>
+                                <p class="card-text">
+                                    {{ purchase.item.name }} by {{ purchase.item.uploader.name }}
+                                </p>
+                                <a href="{{ url_for('ContentView:caff', id_=purchase.item.id) }}"
+                                   class="btn btn-primary" target="_self">Download</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
     {% else %}
         <p><a href="{{ url_for_security('login') }}">Log in</a> to view your profile.</p>
     {% endif %}
