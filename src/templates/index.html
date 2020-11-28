@@ -1,25 +1,27 @@
 {% extends 'base.html' %}
 {% block content %}
-{% if images %}
-<div class="row mx-2">
-    {% for image in images %}
-    <div class="col-12 col-sm-6 col-md-4 px-2 mb-3">
-        <div class="card">
-            <a href="{{ url_for('ItemView:index', id=image.id) }}">
-                <img src="{{image.preview}}" class="img-fluid" style="padding: 30px" alt="{{image.name}}">
-            </a>
-            <div class="card-body">
-                <h5 class="card-title">{{image.creator}}</h5>
-                <p class="card-text">
-                    {{image.name}}
-                </p>
-                <a href="{{ url_for('download', id=image.id) }}" class="btn btn-primary" target="_blank">Download Now</a>
-            </div>
+    {% if items %}
+        <div class="row mx-2">
+            {% for item in items %}
+                <div class="col-12 col-sm-6 col-md-4 px-2 mb-3">
+
+                    <div class="card">
+                        <h5 class="card-header">{{ item.name }} by {{ item.uploader.name }}</h5>
+                        <div class="card-body">
+                            <a href="{{ url_for('ItemView:get', id_=item.id) }}">
+                                <img src="{{ url_for('ContentView:preview', id_=item.id) }}" class="img-fluid"
+                                     alt="{{ item.name }}">
+                            </a>
+                        </div>
+                        <div class="card-footer text-muted">
+                            {{ item.upload_date }}
+                        </div>
+                    </div>
+
+                </div>
+            {% endfor %}
         </div>
-    </div>
-    {% endfor %}
-</div>
-{% else %}
-<p>No images available.</p>
-{% endif %}
+    {% else %}
+        <p>No images available.</p>
+    {% endif %}
 {% endblock %}

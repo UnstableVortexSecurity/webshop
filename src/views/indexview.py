@@ -20,4 +20,4 @@ class IndexView(FlaskView):
 
     def index(self):
         items = Item.query.all()
-        return render_template("index.html", images=items)
+        return render_template("index.html", items=items)
