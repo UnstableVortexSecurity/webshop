@@ -105,4 +105,4 @@ class UploadView(FlaskView):
         os.unlink(converted_png_path)
 
         db.session.commit()
-        return redirect(url_for('UploadView:index'))  # TODO: report item id
+        return redirect(url_for('ItemView:get', id_=item.id))
