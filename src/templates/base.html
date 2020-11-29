@@ -36,9 +36,15 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="{{ url_for('UploadView:index') }}">Upload</a>
                     </li>
+                    {% if current_user.has_role('administrator') %}
+                        <li class="nav-item active">
+                            <a class="nav-link text-danger" href="/admin">Administrate</a>
+                        </li>
+                    {% endif %}
                     <li class="nav-item active">
                         <a class="nav-link" href="{{ url_for_security('logout') }}">Logout</a>
                     </li>
+
                 {% else %}
                     <li class="nav-item active">
                         <a class="nav-link" href="{{ url_for_security('login') }}">Login</a>

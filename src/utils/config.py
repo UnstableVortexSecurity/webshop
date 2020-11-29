@@ -38,6 +38,11 @@ class Config:
     MINIO_SECRET_KEY = os.environ["MINIO_SECRET_KEY"]
     MINIO_SECURE = os.environ.get("MINIO_SECURE", "true").upper() == 'TRUE'
 
+    # Admin stuff
+    DEFAULT_ADMIN_USER = os.environ.get("DEFAULT_ADMIN_USER")
+    DEFAULT_ADMIN_PASSWORD = os.environ.get("DEFAULT_ADMIN_PASSWORD")
+    DEFAULT_ADMIN_EMAIL = os.environ.get("DEFAULT_ADMIN_EMAIL")
+
     # Some constant configured stuff configs
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECURITY_REGISTERABLE = True
