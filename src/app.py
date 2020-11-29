@@ -54,7 +54,7 @@ for view in [ItemView, ProfileView, UploadView, IndexView, ContentView, Purchase
 health.add_check(health_database_status)
 app.add_url_rule("/healthz", "healthcheck", view_func=lambda: health.run())
 
-admin = Admin(app, index_view=AuthenticatedAdminIndexView())
+admin = Admin(app, index_view=AuthenticatedAdminIndexView(), name="Unstable Vortex Admin")
 admin.add_view(AuthenticatedModelView(User, db.session))
 admin.add_view(AuthenticatedModelView(Comment, db.session))
 admin.add_view(AuthenticatedModelView(Item, db.session))
@@ -80,5 +80,6 @@ def init_db():
                                               roles=['administrator'])
             user.name = default_admin_username
             db.session.add(user)
+            app.logger.info("Users table is empty. Default admin user created!")
 
     db.session.commit()

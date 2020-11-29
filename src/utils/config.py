@@ -39,7 +39,7 @@ class Config:
     MINIO_SECURE = os.environ.get("MINIO_SECURE", "true").upper() == 'TRUE'
 
     # Admin stuff
-    DEFAULT_ADMIN_USER = os.environ.get("DEFAULT_ADMIN_USER")
+    DEFAULT_ADMIN_USER = os.environ.get("DEFAULT_ADMIN_USER", "admin")
     DEFAULT_ADMIN_PASSWORD = os.environ.get("DEFAULT_ADMIN_PASSWORD")
     DEFAULT_ADMIN_EMAIL = os.environ.get("DEFAULT_ADMIN_EMAIL")
 
