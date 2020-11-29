@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
+    {% if search_query %}
+        <div class="row mx-2">
+            <h3>Results for {{ search_query }}</h3>
+        </div>
+    {% endif %}
     {% if items %}
         <div class="row mx-2">
             {% for item in items %}
