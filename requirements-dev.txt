@@ -1,3 +1,5 @@
 pytest
 bandit
 beautifulsoup4
+mock
+pytest-mock
