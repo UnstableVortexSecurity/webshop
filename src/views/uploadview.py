@@ -30,7 +30,7 @@ class UploadView(FlaskView):
 
     @login_required
     def post(self):
-        title = request.form.get('title')
+        title = request.form.get('title', '')
         title = title[:Item.name.property.columns[0].type.length]
         title = bleach.clean(title, tags=[])
 
