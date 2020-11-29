@@ -46,6 +46,6 @@ class Config:
     # Some constant configured stuff configs
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECURITY_REGISTERABLE = True
-    SECURITY_PASSWORD_HASH = "bcrypt"
+    SECURITY_PASSWORD_HASH = "bcrypt"  # nosec - THIS IS NOT A PASSWORD YOU STUPID
     MINIO_PREVIEW_BUCKET_NAME = "previews"
     MINIO_CAFF_BUCKET_NAME = "caff"

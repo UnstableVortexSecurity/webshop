@@ -20,7 +20,7 @@ before_script:
   - find . -name "*.py" -exec python3 -m py_compile '{}' \;
   - find . -name "*.py" -exec pylint '{}' + || if [ $? -eq 1 ]; then echo "you fail"; fi
   - find . -name "*.py" -exec python3 -m mccabe --min 3 '{}' + || if [ $? -eq 1 ]; then echo "you fail"; fi
-  - bandit -r .
+  - bandit -r --ini bandit.ini
 
 script:
   - docker build -t="registry.kmlabz.com/unstablevortex/webshop:$TRAVIS_BUILD_NUMBER" . && docker push "registry.kmlabz.com/unstablevortex/webshop:$TRAVIS_BUILD_NUMBER"
